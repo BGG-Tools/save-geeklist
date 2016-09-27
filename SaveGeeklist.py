@@ -70,19 +70,19 @@ def submatch(s, prefix, suffix):
 ### the actual program, it's a bit chatty - using the logging module instead of "print" and
 ### determining the number of pages in the geeklist programmatically is left as an exercise
 
-def geeklistpages(geeklistID, first, last):
+def geeklistpages(geeklist, first, last):
 	'''Download pages from a geeklist on BGG and concatenate them
 
 	Keyword arguments:
-	geeklistID -- the ID number of the geeklist on BGG
+	geeklist -- the ID number of the geeklist on BGG
 	first -- number of the first page to be included
 	last -- number of the last page to be included
 	'''
 
 	# get header and geeklist items from first page
 
-	page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklistID, first)).read()
-	print 'Loaded first page %d of geeklist #%d...' % (first, geeklistID)
+	page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklist, first)).read()
+	print 'Loaded first page %d of geeklist #%d...' % (first, geeklist)
 
 	html = u"""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<html>
@@ -98,7 +98,7 @@ def geeklistpages(geeklistID, first, last):
 	# append geeklist items from the other pages
 
 	for i in xrange(1+first, 1+last):
-		page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklistID, i)).read()
+		page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklist, i)).read()
 		html += submatch(page, "<div class='pager'>", "<div class='pager'>")
 		print status % (i, 1+i-first, '{:.1%}'.format(float(i)/last))
 
@@ -111,18 +111,17 @@ def geeklistpages(geeklistID, first, last):
 
 if __name__ == '__main__':
 	# initialization with demo parameters
-	(geeklistID, first, last) = (19015, 1, 2)
+	(geeklist, first, last) = (19015, 1, 2)
 
 	# collect pages
-	selection = geeklistpages(geeklistID, first, last)
+	selection = geeklistpages(geeklist, first, last)
 
 	# output to disk, feel free to change this part to fit your needs
 	try:
-		pdfkit.from_string(selection, '%d.pdf' % (geeklistID), options=options, configuration=config)
+		pdfkit.from_string(selection, '%d.pdf' % (geeklist), options=options, configuration=config)
 		print 'Saved as PDF'
 	except IOError:
-		with open('%d.html' % (geeklistID), 'w') as output:
+		with open('%d.html' % (geeklist), 'w') as output:
 			output.write(selection)
 		print 'Saved as HTML'
 	print 'done!'
-
