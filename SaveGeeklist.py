@@ -91,16 +91,12 @@ def geeklistpages(geeklist, first, last):
 	html += submatch(page, "<td valign='top' style='padding-left:10px;'>", "<div class='pager'>")
 	html += submatch(page, "<div class='pager'>", "<div class='pager'>")
 
-	# prepare status line to have good padding parameters
-
-	status = 'Added page #%'+str(len(str(last)))+'d (%'+str(len(str(1+last-first)))+'d/'+str(1+last-first)+'), %s percent done...'
-
 	# append geeklist items from the other pages
 
 	for i in xrange(1+first, 1+last):
 		page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklist, i)).read()
 		html += submatch(page, "<div class='pager'>", "<div class='pager'>")
-		print status % (i, 1+i-first, '{:.1%}'.format(float(i)/last))
+		print 'Added page #%d (%d/%d), %s percent done...' % (i, 1+i-first, 1+last-first, '{:.1%}'.format(float(i)/last))
 
 	# please note: the HTML is truncated at this point, but most browsers and pdfkit don't care about that, they render it fine
 	return html
