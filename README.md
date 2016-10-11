@@ -3,7 +3,7 @@ Save a geeklist from BoardGameGeek, spanning multiple pages, to a PDF or HTML fi
 
 ## Prerequisites
 
-This is mostly pretty simple code which just scrapes a website and should be usable directly with any current [Python](https://www.python.org/) installation, except for that PDF part. To make things easier, more readable, and especially: compatible with 2.x and 3.x, I am using the six library.
+This is mostly pretty simple code which just scrapes a website and should be usable directly with any current [Python](https://www.python.org/) installation, but to make things easier, more readable, and especially: compatible across Python versions (2.x/3.x), I am using the six library.
 
 Getting six is mandatory, the other two dependencies can be skipped if you're ok with outputting to HTML only instead of PDF.
 
@@ -11,21 +11,21 @@ The code has been tested to work with Python 2.6 and 2.7.
 
 ### six
 
-Get six, a compatibility module for Python 2 and 3. For example like this:
+Get [six](https://pypi.python.org/pypi/six/), a compatibility module for Python 2 and 3. For example like this:
 > pip install six
 
 Or manually: just download the `six.py` from the [official repository](https://bitbucket.org/gutworth/six/src) and put it in the same directory as `SaveGeeklist.py`. 
 
 ### pdfkit
 
-Get pdfkit, a python wrapper for the wkhtmltopdf program which converts to PDF. For example like this:
+Get [pdfkit](https://pypi.python.org/pypi/pdfkit/), a python wrapper for the wkhtmltopdf program which converts to PDF. For example like this:
 > pip install pdfkit
 
 Or manually: Download an [archive of the module](https://pypi.python.org/pypi/pdfkit#downloads) and extract the `pdfkit` folder (without version suffix!) into the same directory as `SaveGeeklist.py`. 
 
 ### wkhtmltopdf
 
-Get wkhtmltopdf itself, for example from the [official download page](http://wkhtmltopdf.org/downloads.html). If necessary, edit the `pdfkit.configuration()` line in the `SaveGeeklist.py` source code to match your setup then.
+Get [wkhtmltopdf](http://wkhtmltopdf.org/) itself, for example from the [official download page](http://wkhtmltopdf.org/downloads.html). If necessary, edit the `pdfkit.configuration()` line in the `SaveGeeklist.py` source code to match your setup then.
 
 ## Usage
 
