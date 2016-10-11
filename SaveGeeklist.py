@@ -39,6 +39,7 @@ try:
 	options = {
 		'quiet': '',
 		'page-size': 'A4',
+#		'no-background': '',	# uncomment this line to save ink or toner when printing the result!
 	}
 
 	# pdfkit configuration, see https://pypi.python.org/pypi/pdfkit#configuration
@@ -46,11 +47,15 @@ try:
 	# I need to use a binary as I'm on Ubuntu, or otherwise links in PDF won't work
 	# You can get pre-compiled binaries from http://wkhtmltopdf.org/downloads.html
 
-	config = pdfkit.configuration(wkhtmltopdf='/opt/wkhtmltopdf-static/wkhtmltopdf')
+	config = pdfkit.configuration()
+#	config = pdfkit.configuration(wkhtmltopdf='/opt/wkhtmltopdf-static/wkhtmltopdf')
 except:
 	pass	# in that case, we'll just save things as HTML
 
 ### simple method to load web pages
+# https://pythonhosted.org/six/
+# https://pypi.python.org/pypi/six/
+# https://bitbucket.org/gutworth/six
 # https://stackoverflow.com/a/28040508
 
 from six.moves.urllib.request import urlopen
@@ -96,7 +101,7 @@ def geeklistpages(geeklist, first, last):
 	for i in xrange(1+first, 1+last):
 		page = urlopen('https://boardgamegeek.com/geeklist/%d/page/%d' % (geeklist, i)).read()
 		html += submatch(page, "<div class='pager'>", "<div class='pager'>")
-		print 'Added page #%d (%d/%d), %s percent done...' % (i, 1+i-first, 1+last-first, '{:.1%}'.format(float(i)/last))
+		print 'Added page #%d (%d/%d), %s percent done...' % (i, 1+i-first, 1+last-first, '{0:.1%}'.format(float(i)/last))
 
 	# please note: the HTML is truncated at this point, but most browsers and pdfkit don't care about that, they render it fine
 	return html
