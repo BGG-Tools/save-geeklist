@@ -21,7 +21,7 @@ Or manually: just download the `six.py` from the [official repository](https://b
 Get [pdfkit](https://pypi.python.org/pypi/pdfkit/), a python wrapper for the wkhtmltopdf program which converts to PDF. For example like this:
 > pip install pdfkit
 
-Or manually: Download an [archive of the module](https://pypi.python.org/pypi/pdfkit#downloads) and extract the `pdfkit` folder (without version suffix!) into the same directory as `SaveGeeklist.py`. 
+Or manually: Download an [archive of the module](https://pypi.python.org/pypi/pdfkit#downloads) and extract the `pdfkit` folder (the one without version suffix, containing the file `__init__.py` and others) into the same directory as `SaveGeeklist.py`. 
 
 ### wkhtmltopdf
 
